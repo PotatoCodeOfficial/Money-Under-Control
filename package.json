@@ -5,14 +5,16 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
-    "sails": "^1.1.0",
+    "@sailshq/connect-redis": "^3.2.1",
+    "@sailshq/lodash": "^3.10.3",
+    "@sailshq/socket.io-redis": "^5.2.0",
+    "client": "file:client",
     "grunt": "1.0.1",
+    "nodemon": "^1.18.11",
+    "sails": "^1.1.0",
     "sails-hook-grunt": "^3.1.0",
     "sails-hook-orm": "^2.1.1",
-    "sails-hook-sockets": "^1.5.5",
-    "@sailshq/connect-redis": "^3.2.1",
-    "@sailshq/socket.io-redis": "^5.2.0",
-    "@sailshq/lodash": "^3.10.3"
+    "sails-hook-sockets": "^1.5.5"
   },
   "devDependencies": {
     "@sailshq/eslint": "^4.19.3",
@@ -23,7 +25,7 @@
     "test": "npm run lint && npm run custom-tests && echo 'Done.'",
     "lint": "eslint . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "custom-tests": "echo \"(No other custom tests yet.)\" && echo",
-    "client": "cd client && npm start",
+    "client": "cd client && npm run dev",
     "server": "nodemon app.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },

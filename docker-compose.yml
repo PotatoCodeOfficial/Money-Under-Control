@@ -1,0 +1,26 @@
+version: "3"
+services:
+  application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 1337:1337
+      - 4200:4200
+    volumes:
+      - ./:/usr/src/app
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: application_db
+      MYSQL_USER: application_user
+      MYSQL_PASSWORD: root
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+volumes:
+  mysql-data:
