@@ -15,10 +15,10 @@ This is a personal finances application using:
 ### How to set this project to run
 
 - Clone Repo
-- CD repo
+- `cd Money-Under-Control`
 - `npm install && cd ./client && npm install && cd ..`
 - `docker-compose build app`
-- `docker-compose run client npm rebuild node-sass`
+- `docker-compose run app npm rebuild node-sass`
 - `docker-compose up app`
 
 After this can use `http://localhost:4200/` and `http://localhost:1337`
