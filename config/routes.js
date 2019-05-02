@@ -9,6 +9,6 @@
  */
 
 module.exports.routes = {
-
-
+  "get /incomes": "IncomeController.find",
+  "post /incomes": "IncomeController.create"
 };
