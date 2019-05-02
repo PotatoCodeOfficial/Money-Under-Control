@@ -5,20 +5,15 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
-    "@sailshq/connect-redis": "^3.2.1",
     "@sailshq/lodash": "^3.10.3",
-    "@sailshq/socket.io-redis": "^5.2.0",
-    "client": "file:client",
-    "grunt": "1.0.1",
-    "nodemon": "^1.18.11",
     "sails": "^1.1.0",
-    "sails-hook-grunt": "^3.1.0",
     "sails-hook-orm": "^2.1.1",
     "sails-hook-sockets": "^1.5.5",
     "sails-mysql": "^1.0.1"
   },
   "devDependencies": {
     "@sailshq/eslint": "^4.19.3",
+    "nodemon": "^1.18.11",
     "concurrently": "^4.0.1"
   },
   "scripts": {
@@ -33,9 +28,9 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ignacio/money-under-control.git"
+    "url": "git://github.com/PotatoCodeOfficial/Money-Under-Control.git"
   },
-  "author": "PotatoCode",
+  "author": "PotatoCodeOfficial",
   "license": "",
   "engines": {
     "node": "^10.15"
