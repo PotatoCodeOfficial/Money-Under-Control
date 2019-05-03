@@ -3,7 +3,7 @@ import { Button, Icon } from "antd";
 
 import { auth, provider } from "../../firebase";
 
-class LandingHeader extends React.Component {
+class SignInButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,4 +54,4 @@ class LandingHeader extends React.Component {
     );
   }
 }
-export default LandingHeader;
+export default SignInButton;

@@ -1,6 +1,6 @@
 import React from "react";
 import { PageHeader } from "antd";
-import SignInButton from "../SignInButton/SignedInButton";
+import SignInButton from "../SignInButton/SignInButton";
 
 class LandingHeader extends React.Component {
   render() {
