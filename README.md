@@ -17,7 +17,8 @@ This is a personal finances application using:
 - Clone Repo
 - `cd Money-Under-Control`
 - `yarn install && cd ./client && yarn install && cd ..`
-- `docker-compose build app`
+- `docker-compose build`
+- `docker-compose run --rm start_dependencies`
 - `docker-compose up app`
 
 After this can use `http://localhost:4200/` and `http://localhost:1337` also on `localhost:3360` MySQL should be up and running.
