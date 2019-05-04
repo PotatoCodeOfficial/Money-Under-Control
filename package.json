@@ -5,6 +5,11 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "@progress/kendo-buttons-react-wrapper": "^2018.3.1017",
+    "@progress/kendo-charts-react-wrapper": "^2018.2.719",
+    "@progress/kendo-dateinputs-react-wrapper": "^2018.3.1017",
+    "@progress/kendo-inputs-react-wrapper": "^2018.3.1017",
+    "@progress/kendo-theme-bootstrap": "^3.3.1",
     "@sailshq/lodash": "^3.10.3",
     "sails": "^1.1.0",
     "sails-hook-orm": "^2.1.1",
