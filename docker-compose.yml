@@ -10,12 +10,19 @@ services:
     volumes:
       - ./:/usr/src/app
     depends_on:
+      - start_dependencies
+
+  start_dependencies:
+    image: dadarek/wait-for-dependencies
+    depends_on:
       - mysql
+    command: mysql:3306
 
   mysql:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: application_db
     volumes:
       - ./mysql-data:/var/lib/mysql
     ports:
