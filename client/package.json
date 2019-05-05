@@ -4,10 +4,14 @@
   "private": true,
   "proxy": "http://localhost:1337/",
   "dependencies": {
+    "@progress/kendo-react-buttons": "^2.10.0",
     "@progress/kendo-ui": "^2019.1.424",
+    "firebase": "^5.11.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.0"
+    "react-redux": "^7.0.3",
+    "react-scripts": "3.0.0",
+    "redux": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
