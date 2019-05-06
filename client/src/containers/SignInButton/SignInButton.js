@@ -1,42 +1,44 @@
-import React, { PropType, Component } from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { bindActionCreators } from "redux";
+import * as AuthActionCreators from "../../actions/auth";
+
+import { connect } from "react-redux";
 import { Button } from "@progress/kendo-buttons-react-wrapper";
-import ProfileCircle from "../../components/ProfileCircle/ProfileCircle";
+import ProfileCircle from "../ProfileCircle/ProfileCircle";
 import { auth, provider } from "../../helpers/firebase";
 
-export default class SignInButton extends Component {
-  state = {
-    user: null
+class SignInButton extends Component {
+  static propTypes = {
+    user: PropTypes.object
   };
 
+  authCreators = bindActionCreators(AuthActionCreators, this.props.dispatch);
+
   openGoogleAuthModal = event => {
-    console.log("Ocurre algo");
-    if (!!this.state.user) {
-      auth.signOut().then(result => {
-        this.setState({
-          user: null
-        });
-      });
-    } else {
-      auth.signInWithPopup(provider).then(result => {
-        this.setState({
-          user: result.user
-        });
-      });
-    }
+    auth.signInWithPopup(provider).then(result => {
+      this.signIn(result.user);
+    });
+  };
+
+  signIn = user => {
+    let action = this.authCreators.signIn(user);
+    this.props.dispatch(action);
   };
 
   componentDidMount() {
     auth.onAuthStateChanged(user => {
       if (user) {
-        this.setState({ user });
+        this.signIn(user);
       }
     });
   }
 
   render() {
+    const { user } = this.props;
     return (
       <div>
-        {this.state.user ? (
+        {user != null ? (
           <ProfileCircle />
         ) : (
           <Button click={this.openGoogleAuthModal}>Sign in</Button>
@@ -45,3 +47,9 @@ export default class SignInButton extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps)(SignInButton);
