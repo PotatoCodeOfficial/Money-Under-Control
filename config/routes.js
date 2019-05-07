@@ -10,5 +10,9 @@
 
 module.exports.routes = {
   "get /incomes": "IncomeController.find",
-  "post /incomes": "IncomeController.create"
+  "get /incomes/:id?": "IncomeController.findById",
+  "post /incomes": "IncomeController.create",
+  "put /incomes/:id?": "IncomeController.update",
+  "patch /incomes/:id?": "IncomeController.update",
+  "delete /incomes/:id?": "IncomeController.deleteById"
 };
