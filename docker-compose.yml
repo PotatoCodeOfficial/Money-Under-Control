@@ -28,3 +28,19 @@ services:
     ports:
       - 3306:3306
     command: mysqld --default-authentication-plugin=mysql_native_password
+
+  docs:
+    image: httpd:2.4
+    volumes:
+      - ./docs/:/usr/local/apache2/htdocs/
+    ports:
+      - 8081:80
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    # environment:
+    #  API_URL: http://localhost:8081/docs.yml
+    ports:
+      - 8080:8080
+    depends_on:
+      - docs
