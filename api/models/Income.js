@@ -12,7 +12,12 @@ module.exports = {
     description: { type: "string" },
     amount: { type: "number", required: true },
     date: { type: "number", required: true }, // Using number in order to save Unix Time Stamp
-    category: { model: "category", required: true }
+    category: { model: "category", required: true },
+    is_deleted: {
+      type: "boolean",
+      defaultsTo: false,
+      allowNull: false
+    }
     // moneyStore: { model: "moneyStore", required: true } // Eventually need to add moneyStore model, then this association
   }
 };

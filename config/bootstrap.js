@@ -9,8 +9,7 @@
  * https://sailsjs.com/config/bootstrap
  */
 
-module.exports.bootstrap = async function() {
-
+module.exports.bootstrap = async function(cb) {
   // By convention, this is a good place to set up fake data during development.
   //
   // For example:
@@ -27,4 +26,27 @@ module.exports.bootstrap = async function() {
   // ]);
   // ```
 
+  // Seed categories
+  if ((await Category.count()) == 0) {
+    await Category.createEach([
+      {
+        name: "Salary",
+        type: "income"
+      },
+      {
+        name: "Bond",
+        type: "income"
+      },
+      {
+        name: "House",
+        type: "expense"
+      },
+      {
+        name: "Restaurant",
+        type: "expense"
+      }
+    ]);
+  }
+
+  cb();
 };
