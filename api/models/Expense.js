@@ -6,7 +6,6 @@
  */
 
 module.exports = {
-
   attributes: {
     UID: { type: "string", required: true },
     name: { type: "string", required: true },
@@ -20,6 +19,5 @@ module.exports = {
       allowNull: false
     }
   }
-
 };
 

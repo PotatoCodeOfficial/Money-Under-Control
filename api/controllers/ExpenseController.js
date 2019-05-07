@@ -8,16 +8,16 @@ const moment = require("moment");
 
 module.exports = {
   find: async (req, res) => {
-    let incomes = await Income.find({ is_deleted: false }).populate("category");
-    res.ok(incomes);
+    let expenses = await expense.find({ is_deleted: false }).populate("category");
+    res.ok(expenses);
   },
   findById: async (req, res) => {
     let id = req.param("id");
     try {
-      let income = await Income.findOne({ id, is_deleted: false }).populate(
+      let expense = await expense.findOne({ id, is_deleted: false }).populate(
         "category"
       );
-      res.ok({ income });
+      res.ok({ expense });
     } catch (error) {
       res.serverError(error);
     }
@@ -33,7 +33,7 @@ module.exports = {
 
     // Save or return 422
     try {
-      let income = await Income.create({
+      let expense = await expense.create({
         name,
         description,
         amount,
@@ -42,7 +42,7 @@ module.exports = {
         UID
       }).fetch();
 
-      res.ok(income);
+      res.ok(expense);
     } catch (error) {
       res.status(422);
       res.send({ error: error.details });
@@ -56,7 +56,7 @@ module.exports = {
     }
 
     try {
-      await Income.update({ id }).set({ is_deleted: true });
+      await expense.update({ id }).set({ is_deleted: true });
       res.status(204);
       res.send({});
     } catch (error) {
@@ -65,21 +65,21 @@ module.exports = {
   },
   update: async (req, res) => {
     let id = req.param("id");
-    let income = req.param("income");
+    let expense = req.param("expense");
 
-    if (!id || !income) {
+    if (!id || !expense) {
       res.status(422);
-      res.send({ error: "id and income are required for updating." });
+      res.send({ error: "id and expense are required for updating." });
     }
 
-    delete income.is_deleted;
-    delete income.id;
+    delete expense.is_deleted;
+    delete expense.id;
 
     try {
-      let updatedIncome = await Income.updateOne({ id, is_deleted: false }).set(
-        income
+      let updatedExpense = await expense.updateOne({ id, is_deleted: false }).set(
+        expense
       );
-      res.ok(updatedIncome || {});
+      res.ok(updatedExpense || {});
     } catch (error) {
       res.status(422);
       res.send({ error: error.details });
