@@ -18,6 +18,7 @@ import {
 } from "@coreui/react";
 import logo from "../../assets/img/brand/logo.svg";
 import sygnet from "../../assets/img/brand/sygnet.svg";
+import UserShortcut from "../UserShortcut/UserShortcut";
 
 const propTypes = {
   children: PropTypes.node
@@ -48,35 +49,7 @@ class DefaultHeader extends Component {
               </Badge>
             </NavLink>
           </NavItem>
-          <AppHeaderDropdown direction="down">
-            <DropdownToggle nav>
-              <img
-                src={"../../assets/img/avatars/6.jpg"}
-                className="img-avatar"
-                alt="admin@bootstrapmaster.com"
-              />
-            </DropdownToggle>
-            <DropdownMenu right style={{ right: "auto" }}>
-              <DropdownItem header tag="div" className="text-center">
-                <strong>Account</strong>
-              </DropdownItem>
-              <DropdownItem>
-                <i className="fa fa-bell-o" /> Updates
-                <Badge color="info">42</Badge>
-              </DropdownItem>
-
-              <DropdownItem header tag="div" className="text-center">
-                <strong>Settings</strong>
-              </DropdownItem>
-
-              <DropdownItem>
-                <i className="fa fa-wrench" /> Settings
-              </DropdownItem>
-              <DropdownItem onClick={e => this.props.onLogout(e)}>
-                <i className="fa fa-lock" /> Logout
-              </DropdownItem>
-            </DropdownMenu>
-          </AppHeaderDropdown>
+          <UserShortcut />
         </Nav>
       </React.Fragment>
     );
