@@ -9,12 +9,7 @@ const loading = () => (
 
 // Containers
 const DefaultLayout = React.lazy(() => import("./containers/DefaultLayout"));
-
-// Pages
-const Login = React.lazy(() => import("./views/Pages/Login"));
-const Register = React.lazy(() => import("./views/Pages/Register"));
-const Page404 = React.lazy(() => import("./views/Pages/Page404"));
-const Page500 = React.lazy(() => import("./views/Pages/Page500"));
+const Login = React.lazy(() => import("./containers/Login"));
 
 class App extends Component {
   render() {
