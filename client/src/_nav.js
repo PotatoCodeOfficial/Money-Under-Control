@@ -3,11 +3,11 @@ export default {
     {
       name: "Dashboard",
       url: "/dashboard",
-      icon: "icon-speedometer"
+      icon: "fa fa-cubes"
     },
     {
       title: true,
-      name: "Theme",
+      name: "Base",
       wrapper: {
         // optional wrapper object
         element: "", // required valid HTML5 element tag
@@ -16,31 +16,31 @@ export default {
       class: "" // optional class names space delimited list for title item ex: "text-center"
     },
     {
-      name: "Colors",
+      name: "Incomes",
       url: "/theme/colors",
-      icon: "icon-drop"
+      icon: "fa fa-dollar"
     },
     {
-      name: "Typography",
+      name: "Expenses",
       url: "/theme/typography",
-      icon: "icon-pencil"
+      icon: "fa fa-list"
     },
     {
       divider: true
     },
     {
       title: true,
-      name: "Extras"
+      name: "Premium"
     },
     {
-      name: "Pages",
+      name: "Projections",
       url: "/pages",
-      icon: "icon-star",
+      icon: "fa fa-line-chart",
       children: [
         {
           name: "Login",
           url: "/login",
-          icon: "icon-star"
+          icon: "fa fa-user"
         }
       ]
     }
