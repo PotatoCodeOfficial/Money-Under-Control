@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 // import { renderRoutes } from 'react-router-config';
 import "./App.scss";
 
@@ -14,7 +14,7 @@ const Login = React.lazy(() => import("./containers/Login/Login"));
 class App extends Component {
   render() {
     return (
-      <HashRouter>
+      <BrowserRouter>
         <React.Suspense fallback={loading()}>
           <Switch>
             <Route
@@ -30,7 +30,7 @@ class App extends Component {
             />
           </Switch>
         </React.Suspense>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }
