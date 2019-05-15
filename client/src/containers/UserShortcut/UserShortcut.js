@@ -25,8 +25,7 @@ class UserShortcut extends Component {
     auth.signOut().then(result => {
       let action = this.authCreators.logOut();
       this.props.dispatch(action);
-      // Need to use some of `this.context.history.push` or `this.props.history.push`
-      window.location.href = "/";
+      this.props.history.push("/");
     });
   };
 
