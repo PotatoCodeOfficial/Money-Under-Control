@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { AppNavbarBrand, AppSidebarToggler } from "@coreui/react";
 import logo from "../../assets/img/brand/logo.svg";
 import sygnet from "../../assets/img/brand/sygnet.svg";
-import UserShortcut from "../UserShortcut/UserShortcut";
+import UserButton from "../UserButton/UserButton";
 
 const propTypes = {
   children: PropTypes.node
@@ -37,7 +37,7 @@ class Header extends Component {
               </Badge>
             </NavLink>
           </NavItem>
-          <UserShortcut {...this.props} />
+          <UserButton {...this.props} />
         </Nav>
       </React.Fragment>
     );

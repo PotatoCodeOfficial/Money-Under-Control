@@ -9,7 +9,7 @@ import * as AuthActionCreators from "../../actions/auth";
 
 import { AppHeaderDropdown } from "@coreui/react";
 
-class UserShortcut extends Component {
+class UserButton extends Component {
   static propTypes = {
     user: PropTypes.object
   };
@@ -79,4 +79,4 @@ const mapStateToProps = state => ({
   user: state.auth
 });
 
-export default connect(mapStateToProps)(UserShortcut);
+export default connect(mapStateToProps)(UserButton);
