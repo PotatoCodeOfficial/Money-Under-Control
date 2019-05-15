@@ -38,7 +38,7 @@ class UserShortcut extends Component {
   }
 
   render() {
-    let { user } = this.props;
+    let { user } = this.props.user;
     return (
       <React.Fragment>
         <AppHeaderDropdown direction="down">
@@ -46,7 +46,7 @@ class UserShortcut extends Component {
             <img
               src={user ? user.photoURL : ""}
               className="img-avatar"
-              alt="admin@bootstrapmaster.com"
+              alt={user ? user.email : ""}
             />
           </DropdownToggle>
           <DropdownMenu right style={{ right: "auto" }}>
@@ -76,7 +76,7 @@ class UserShortcut extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.auth
 });
 
 export default connect(mapStateToProps)(UserShortcut);

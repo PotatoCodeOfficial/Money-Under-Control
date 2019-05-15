@@ -8,7 +8,7 @@ const loading = () => (
 );
 
 // Containers
-const DefaultLayout = React.lazy(() => import("./containers/DefaultLayout"));
+const Layout = React.lazy(() => import("./containers/Layout"));
 const Login = React.lazy(() => import("./containers/Login/Login"));
 
 class App extends Component {
@@ -26,7 +26,7 @@ class App extends Component {
             <Route
               path="/"
               name="Home"
-              render={props => <DefaultLayout {...props} />}
+              render={props => <Layout {...props} />}
             />
           </Switch>
         </React.Suspense>

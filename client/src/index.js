@@ -7,16 +7,20 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
+import thunk from "redux-thunk";
 import AuthReducer from "./reducers/auth";
+import reducers from "./reducers";
 
-const store = createStore(
-  AuthReducer,
-  window.devToolsExtension && window.devToolsExtension()
-);
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider
+    store={createStoreWithMiddleware(
+      reducers,
+      window.devToolsExtension && window.devToolsExtension()
+    )}
+  >
     <App />
   </Provider>,
   document.getElementById("root")

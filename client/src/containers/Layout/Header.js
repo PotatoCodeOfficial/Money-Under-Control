@@ -1,21 +1,9 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
-import {
-  Badge,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Nav,
-  NavItem
-} from "reactstrap";
+import { NavLink } from "react-router-dom";
+import { Badge, Nav, NavItem } from "reactstrap";
 import PropTypes from "prop-types";
 
-import {
-  AppAsideToggler,
-  AppHeaderDropdown,
-  AppNavbarBrand,
-  AppSidebarToggler
-} from "@coreui/react";
+import { AppNavbarBrand, AppSidebarToggler } from "@coreui/react";
 import logo from "../../assets/img/brand/logo.svg";
 import sygnet from "../../assets/img/brand/sygnet.svg";
 import UserShortcut from "../UserShortcut/UserShortcut";
@@ -26,7 +14,7 @@ const propTypes = {
 
 const defaultProps = {};
 
-class DefaultHeader extends Component {
+class Header extends Component {
   render() {
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
@@ -56,7 +44,7 @@ class DefaultHeader extends Component {
   }
 }
 
-DefaultHeader.propTypes = propTypes;
-DefaultHeader.defaultProps = defaultProps;
+Header.propTypes = propTypes;
+Header.defaultProps = defaultProps;
 
-export default DefaultHeader;
+export default Header;
