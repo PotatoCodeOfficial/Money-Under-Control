@@ -26,17 +26,25 @@ class DefaultLayout extends Component {
     <div className="animated fadeIn pt-1 text-center">Loading...</div>
   );
 
-  signOut(e) {
-    e.preventDefault();
-    this.props.history.push("/login");
-  }
+  // signIn = user => {
+  //   let action = this.authCreators.signIn(user);
+  //   this.props.dispatch(action);
+  // };
+
+  // componentWillMount() {
+  //   auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       this.signIn(user);
+  //     }
+  //   });
+  // }
 
   render() {
     return (
       <div className="app">
         <AppHeader fixed>
           <Suspense fallback={this.loading()}>
-            <DefaultHeader onLogout={e => this.signOut(e)} />
+            <DefaultHeader {...this.props} />
           </Suspense>
         </AppHeader>
         <div className="app-body">

@@ -49,7 +49,7 @@ class DefaultHeader extends Component {
               </Badge>
             </NavLink>
           </NavItem>
-          <UserShortcut />
+          <UserShortcut {...this.props} />
         </Nav>
       </React.Fragment>
     );
