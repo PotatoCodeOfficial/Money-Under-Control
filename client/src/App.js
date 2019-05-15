@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 // import { renderRoutes } from 'react-router-config';
 import "./App.scss";
+import Dashboard from "./components/Dashboard/Dashboard";
+import ProtectedRoute from "./helpers/ProtectedRoute";
 
 const loading = () => (
   <div className="animated fadeIn pt-3 text-center">Loading...</div>
@@ -23,11 +25,7 @@ class App extends Component {
               name="Login Page"
               render={props => <Login {...props} />}
             />
-            <Route
-              path="/"
-              name="Home"
-              render={props => <Layout {...props} />}
-            />
+            <ProtectedRoute path="/" component={Layout} />
           </Switch>
         </React.Suspense>
       </BrowserRouter>
