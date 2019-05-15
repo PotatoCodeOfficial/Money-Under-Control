@@ -9,7 +9,7 @@ const loading = () => (
 
 // Containers
 const DefaultLayout = React.lazy(() => import("./containers/DefaultLayout"));
-const Login = React.lazy(() => import("./containers/Login"));
+const Login = React.lazy(() => import("./containers/Login/Login"));
 
 class App extends Component {
   render() {
