@@ -8,13 +8,15 @@ const moment = require("moment");
 
 module.exports = {
   find: async (req, res) => {
-    let expenses = await expense.find({ is_deleted: false }).populate("category");
+    let expenses = await Expense.find({ is_deleted: false }).populate(
+      "category"
+    );
     res.ok(expenses);
   },
   findById: async (req, res) => {
     let id = req.param("id");
     try {
-      let expense = await expense.findOne({ id, is_deleted: false }).populate(
+      let expense = await Expense.findOne({ id, is_deleted: false }).populate(
         "category"
       );
       res.ok({ expense });
@@ -33,7 +35,7 @@ module.exports = {
 
     // Save or return 422
     try {
-      let expense = await expense.create({
+      let expense = await Expense.create({
         name,
         description,
         amount,
@@ -56,7 +58,7 @@ module.exports = {
     }
 
     try {
-      await expense.update({ id }).set({ is_deleted: true });
+      await Expense.update({ id }).set({ is_deleted: true });
       res.status(204);
       res.send({});
     } catch (error) {
@@ -76,9 +78,10 @@ module.exports = {
     delete expense.id;
 
     try {
-      let updatedExpense = await expense.updateOne({ id, is_deleted: false }).set(
-        expense
-      );
+      let updatedExpense = await Expense.updateOne({
+        id,
+        is_deleted: false
+      }).set(expense);
       res.ok(updatedExpense || {});
     } catch (error) {
       res.status(422);
