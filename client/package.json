@@ -37,6 +37,7 @@
     "react-test-renderer": "^16.8.5",
     "reactstrap": "^7.1.0",
     "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "simple-line-icons": "^2.4.1"
   },
   "devDependencies": {
