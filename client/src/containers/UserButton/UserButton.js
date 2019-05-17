@@ -25,7 +25,7 @@ class UserButton extends Component {
     auth.signOut().then(result => {
       let action = this.authCreators.logOut();
       this.props.dispatch(action);
-      this.props.history.push("/");
+      this.props.history.push("/login");
     });
   };
 

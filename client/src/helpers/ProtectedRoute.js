@@ -1,45 +1,51 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import auth from "./firebase";
+
+import { auth, provider } from "../helpers/firebase";
+
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as AuthActionCreators from "../actions/auth";
+import { withRouter } from "react-router";
 
-const Layout = React.lazy(() => import("../containers/Layout"));
-
-const ProtectedRoute = ({ component: Component, ...rest }) => {
-  var propTypes = {
+class ProtectedRoute extends React.Component {
+  static propTypes = {
     user: PropTypes.object
   };
 
-  return (
-    <Route
-      {...rest}
-      render={props => {
-        console.log("The user is: " + auth.currentUser);
+  constructor(props) {
+    super();
+  }
 
-        if (true) {
-          return <Component {...props} />;
-        } else {
-          return (
-            <Redirect
-              to={{
-                pathname: "/login",
-                state: {
-                  from: props.location
-                }
-              }}
-            />
-          );
-        }
-      }}
-    />
-  );
-};
+  render() {
+    console.log(this.props.user);
+    return (
+      <Route
+        {...this.props}
+        render={props => {
+          if (!!this.props.user) {
+            return <this.props.component {...props} />;
+          } else {
+            return (
+              <Redirect
+                to={{
+                  pathname: "/login",
+                  state: {
+                    from: props.location
+                  }
+                }}
+              />
+            );
+          }
+        }}
+      />
+    );
+  }
+}
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps)(ProtectedRoute);
