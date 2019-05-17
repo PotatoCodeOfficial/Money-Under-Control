@@ -17,7 +17,7 @@ export default {
     },
     {
       name: "Incomes",
-      url: "/app/theme/colors",
+      url: "/app/incomes",
       icon: "fa fa-dollar"
     },
     {

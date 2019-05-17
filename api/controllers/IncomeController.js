@@ -8,7 +8,10 @@ const moment = require("moment");
 
 module.exports = {
   find: async (req, res) => {
-    let incomes = await Income.find({ is_deleted: false }).populate("category");
+    let uid = req.param("uid");
+    let incomes = await Income.find({ is_deleted: false, UID: uid }).populate(
+      "category"
+    );
     res.ok(incomes);
   },
   findById: async (req, res) => {
