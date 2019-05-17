@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: "Dashboard",
-      url: "/dashboard",
+      url: "/app/dashboard",
       icon: "fa fa-cubes"
     },
     {
@@ -17,12 +17,12 @@ export default {
     },
     {
       name: "Incomes",
-      url: "/theme/colors",
+      url: "/app/theme/colors",
       icon: "fa fa-dollar"
     },
     {
       name: "Expenses",
-      url: "/theme/typography",
+      url: "/app/theme/typography",
       icon: "fa fa-list"
     },
     {

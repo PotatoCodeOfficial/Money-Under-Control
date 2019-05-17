@@ -36,7 +36,7 @@ class Login extends Component {
     auth.onAuthStateChanged(user => {
       if (user) {
         this.signIn(user);
-        this.props.history.push("/dashboard");
+        this.props.history.push("/app/dashboard");
       }
     });
   }

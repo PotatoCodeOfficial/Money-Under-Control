@@ -6,10 +6,9 @@ const Dashboard = React.lazy(() => import("./components/Dashboard"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
-  { path: "/dashboard", name: "Dashboard", component: Dashboard },
-
-  { path: "/theme/colors", name: "Colors", component: Colors },
-  { path: "/theme/typography", name: "Typography", component: Typography }
+  { path: "/app/dashboard", name: "Dashboard", component: Dashboard },
+  { path: "/app/theme/colors", name: "Colors", component: Colors },
+  { path: "/app/theme/typography", name: "Typography", component: Typography }
 ];
 
 export default routes;

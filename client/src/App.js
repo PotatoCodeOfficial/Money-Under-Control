@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 // import { renderRoutes } from 'react-router-config';
 import "./App.scss";
-import Dashboard from "./components/Dashboard/Dashboard";
 import ProtectedRoute from "./helpers/ProtectedRoute";
 
 const loading = () => (
@@ -25,7 +24,9 @@ class App extends Component {
               name="Login Page"
               render={props => <Login {...props} />}
             />
-            <ProtectedRoute path="/" component={Layout} />
+
+            <ProtectedRoute path="/app" component={Layout} />
+            <Redirect from="/" to="/login" />
           </Switch>
         </React.Suspense>
       </BrowserRouter>
