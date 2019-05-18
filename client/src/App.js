@@ -25,7 +25,7 @@ class App extends Component {
               render={props => <Login {...props} />}
             />
 
-            <ProtectedRoute path="/app" component={Layout} />
+            <Route path="/app" component={Layout} />
             <Redirect from="/" to="/login" />
           </Switch>
         </React.Suspense>

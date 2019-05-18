@@ -12,7 +12,7 @@ import { auth, provider } from "../../helpers/firebase";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as AuthActionCreators from "../../actions/auth";
+import * as AuthActionCreators from "../../redux/actions/auth";
 
 class Login extends Component {
   static propTypes = {

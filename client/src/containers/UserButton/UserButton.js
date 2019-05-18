@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { auth, provider } from "../../helpers/firebase";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as AuthActionCreators from "../../actions/auth";
+import * as AuthActionCreators from "../../redux/actions/auth";
 
 import { AppHeaderDropdown } from "@coreui/react";
 
