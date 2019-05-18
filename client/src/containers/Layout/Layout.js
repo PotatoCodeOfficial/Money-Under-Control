@@ -40,6 +40,8 @@ class Layout extends Component {
   // }
 
   render() {
+    const isMobile = window.innerWidth <= 500;
+    console.log(window.innerWidth);
     return (
       <div className="app">
         <AppHeader fixed>
@@ -59,7 +61,7 @@ class Layout extends Component {
           </AppSidebar>
           <main className="main">
             <AppBreadcrumb appRoutes={routes} />
-            <Container fluid>
+            <Container fluid={!isMobile}>
               <Suspense fallback={this.loading()}>
                 <Switch>
                   {routes.map((route, idx) => {

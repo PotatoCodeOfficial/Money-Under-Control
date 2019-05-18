@@ -19,6 +19,7 @@ import {
   Input,
   Form
 } from "reactstrap";
+import Income from "../../../../components/Income/Income";
 import axios from "axios";
 import moment from "moment";
 
@@ -90,7 +91,6 @@ class Incomes extends Component {
   }
 
   render() {
-    const columns = ["Name", "Amount", "Category", "Date"];
     return (
       <div className="animated fadeIn">
         <Row>
@@ -112,32 +112,17 @@ class Incomes extends Component {
                 </div>
               </CardHeader>
               <CardBody>
-                <Table responsive striped bordered>
-                  <thead>
-                    <tr>
-                      {columns.map(column => {
-                        return <th>{column}</th>;
-                      })}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.incomes.map(income => {
-                      return (
-                        <tr>
-                          <td>{income.name}</td>
-                          <td>{income.amount}</td>
-                          <td>
-                            {income.category} {"   "}
-                            {income.icon != null ? (
-                              <i className={income.icon} />
-                            ) : null}
-                          </td>
-                          <td>{income.date}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </Table>
+                {this.state.incomes.map(income => {
+                  return (
+                    <Income
+                      header={"$" + income.amount}
+                      mainText={income.name}
+                      icon={income.icon != null ? income.icon : "fa fa-dollar"}
+                      variant="1"
+                      color="success"
+                    />
+                  );
+                })}
 
                 {/* <Pagination>
                   <PaginationItem disabled>
