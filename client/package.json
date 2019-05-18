@@ -42,7 +42,8 @@
     "simple-line-icons": "^2.4.1"
   },
   "devDependencies": {
-    "react-scripts": "^2.1.8"
+    "react-scripts": "^2.1.8",
+    "redux-immutable-state-invariant": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
