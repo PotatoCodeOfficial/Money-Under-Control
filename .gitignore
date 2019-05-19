@@ -130,3 +130,6 @@ lib-cov
 *.out
 *.pid
 mysql-data
+
+.env
+.env.development
