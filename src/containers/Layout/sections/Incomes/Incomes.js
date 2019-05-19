@@ -32,21 +32,19 @@ class Incomes extends Component {
   };
 
   getIncomes = () => {
-    axios
-      .get("/api/incomes?uid=PPtk6UoXaGW3IowzEpjrqxmZS2O2")
-      .then(response => {
-        console.log(response);
-        let incomes = response.data.map(income => {
-          return {
-            amount: income.amount,
-            name: income.name,
-            date: moment.unix(income.date).format("MM/DD/YYYY"),
-            category: income.category.name,
-            icon: income.category.icon
-          };
-        });
-        this.setState({ incomes });
+    axios.get("/incomes?uid=PPtk6UoXaGW3IowzEpjrqxmZS2O2").then(response => {
+      console.log(response);
+      let incomes = response.data.map(income => {
+        return {
+          amount: income.amount,
+          name: income.name,
+          date: moment.unix(income.date).format("MM/DD/YYYY"),
+          category: income.category.name,
+          icon: income.category.icon
+        };
       });
+      this.setState({ incomes });
+    });
   };
 
   createIncome = () => {
@@ -64,10 +62,10 @@ class Incomes extends Component {
       amount,
       category,
       description,
-      UID: "PPtk6UoXaGW3IowzEpjrqxmZS2O2" // Will use `user.uid`
+      uid: "PPtk6UoXaGW3IowzEpjrqxmZS2O2" // Will use `user.uid`
     };
 
-    axios.post("/api/incomes", newIncome).then(result => {
+    axios.post("/incomes", newIncome).then(result => {
       this.getIncomes();
       this.setState({
         createModal: false,

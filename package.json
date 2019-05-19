@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "Ignacio Rojas & Jose Delgado",
   "license": "MIT",
-  "proxy": "http://localhost:1337/",
+  "proxy": "http://localhost:3001/",
   "private": true,
   "repository": {
     "type": "git",
