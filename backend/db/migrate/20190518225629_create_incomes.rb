@@ -5,6 +5,7 @@ class CreateIncomes < ActiveRecord::Migration[5.2]
       t.string :description
       t.decimal :amount
       t.date :date
+      t.boolean :is_deleted
       t.timestamps
     end
   end
