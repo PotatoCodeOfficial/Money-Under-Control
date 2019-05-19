@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2019_05_19_011246) do
   create_table "expenses", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "amount"
+    t.decimal "amount"
     t.date "date"
     t.boolean "is_deleted"
     t.datetime "created_at", null: false

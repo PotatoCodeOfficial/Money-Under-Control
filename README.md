@@ -26,3 +26,9 @@ After this can use `http://localhost:4200/` and `http://localhost:1337` also on 
 ### Fill `.env` file
 
 Please use you data from: [Firebase Console](https://console.firebase.google.com/)
+
+### Swagger Implementation
+
+- Running generators: `rails generate rspec:install`, `rails g rswag:install`
+- Generate the swagger JSON: `rake rswag:specs:swaggerize`
+- Check: `http://localhost:3000/api-docs`
