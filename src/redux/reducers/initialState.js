@@ -1,4 +1,5 @@
 export default {
   expenses: [],
-  incomes: []
+  incomes: [],
+  user: {}
 };

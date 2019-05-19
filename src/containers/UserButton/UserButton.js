@@ -1,44 +1,24 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { Badge, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
-import PropTypes from "prop-types";
-import { auth, provider } from "../../helpers/firebase";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as AuthActionCreators from "../../redux/actions/auth";
-
+import { DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 import { AppHeaderDropdown } from "@coreui/react";
 
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+import { logoutUser } from "../../redux/actions/authActions";
+import { bindActionCreators } from "redux";
+import { doLogout, isLogged } from "../../helpers/auth";
+import { withRouter } from "react-router-dom";
+
 class UserButton extends Component {
-  static propTypes = {
-    user: PropTypes.object
-  };
-
-  authCreators = bindActionCreators(AuthActionCreators, this.props.dispatch);
-
-  signIn = user => {
-    let action = this.authCreators.signIn(user);
-    this.props.dispatch(action);
-  };
-
-  logOut = () => {
-    auth.signOut().then(result => {
-      let action = this.authCreators.logOut();
-      this.props.dispatch(action);
+  logout = () => {
+    doLogout().then(() => {
+      this.props.logoutUser();
       this.props.history.push("/login");
     });
   };
-
-  componentWillMount() {
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        this.signIn(user);
-      }
-    });
-  }
-
   render() {
-    let { user } = this.props.user;
+    let { user } = this.props;
     return (
       <React.Fragment>
         <AppHeaderDropdown direction="down">
@@ -50,22 +30,7 @@ class UserButton extends Component {
             />
           </DropdownToggle>
           <DropdownMenu right style={{ right: "auto" }}>
-            <DropdownItem header tag="div" className="text-center">
-              <strong>Account</strong>
-            </DropdownItem>
-            <DropdownItem>
-              <i className="fa fa-bell-o" /> Updates
-              <Badge color="info">42</Badge>
-            </DropdownItem>
-
-            <DropdownItem header tag="div" className="text-center">
-              <strong>Settings</strong>
-            </DropdownItem>
-
-            <DropdownItem>
-              <i className="fa fa-wrench" /> Settings
-            </DropdownItem>
-            <DropdownItem onClick={this.logOut}>
+            <DropdownItem onClick={this.logout}>
               <i className="fa fa-lock" /> Logout
             </DropdownItem>
           </DropdownMenu>
@@ -75,8 +40,22 @@ class UserButton extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.auth
-});
+UserButton.propTypes = {
+  user: PropTypes.object,
+  logoutUser: PropTypes.func.isRequired
+};
 
-export default connect(mapStateToProps)(UserButton);
+function mapStateToProps(state) {
+  return {
+    user: state.auth.user
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ logoutUser: logoutUser }, dispatch);
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(UserButton));

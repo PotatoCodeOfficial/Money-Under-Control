@@ -13,35 +13,48 @@ import {
   AppSidebarMinimizer,
   AppSidebarNav
 } from "@coreui/react";
-// sidebar nav config
 import navigation from "../../_nav";
-// routes config
 import routes from "../../routes";
+
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+import { loginUser } from "../../redux/actions/authActions";
+import { isLogged } from "../../helpers/auth";
+
+import { auth } from "../../helpers/firebase";
+import { bindActionCreators } from "redux";
 
 const Footer = React.lazy(() => import("./Footer"));
 const Header = React.lazy(() => import("./Header"));
 
 class Layout extends Component {
+  constructor(props) {
+    super(props);
+
+    const { loginUser, user } = props;
+
+    if (isLogged()) {
+      if (!user) {
+        const unsubscribe = auth.onAuthStateChanged(user => {
+          if (user) {
+            loginUser(user);
+            unsubscribe();
+          }
+        });
+      }
+    } else {
+      this.props.history.push("/login");
+    }
+  }
+
   loading = () => (
     <div className="animated fadeIn pt-1 text-center">Loading...</div>
   );
 
-  // signIn = user => {
-  //   let action = this.authCreators.signIn(user);
-  //   this.props.dispatch(action);
-  // };
-
-  // componentWillMount() {
-  //   auth.onAuthStateChanged(user => {
-  //     if (user) {
-  //       this.signIn(user);
-  //     }
-  //   });
-  // }
-
   render() {
     const isMobile = window.innerWidth <= 500;
-    console.log(window.innerWidth);
+
     return (
       <div className="app">
         <AppHeader fixed>
@@ -75,7 +88,7 @@ class Layout extends Component {
                       />
                     ) : null;
                   })}
-                  <Redirect from="/" to="/login" />
+                  <Redirect from="/" to="/app/dashboard" />
                 </Switch>
               </Suspense>
             </Container>
@@ -91,4 +104,22 @@ class Layout extends Component {
   }
 }
 
-export default Layout;
+Layout.propTypes = {
+  user: PropTypes.object,
+  loginUser: PropTypes.func.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ loginUser: loginUser }, dispatch);
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Layout);
