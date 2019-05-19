@@ -1,5 +1,4 @@
-import React, { Component, lazy, Suspense } from "react";
-import { getStyle } from "@coreui/coreui/dist/js/coreui-utilities";
+import React, { Component } from "react";
 
 class Dashboard extends Component {
   constructor(props) {

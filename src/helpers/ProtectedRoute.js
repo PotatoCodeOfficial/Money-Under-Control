@@ -1,13 +1,8 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import { auth, provider } from "../helpers/firebase";
-
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as AuthActionCreators from "../redux/actions/auth";
-import { withRouter } from "react-router";
 
 class ProtectedRoute extends React.Component {
   static propTypes = {
@@ -45,7 +40,7 @@ class ProtectedRoute extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth.user
+  user: state.user
 });
 
 export default connect(mapStateToProps)(ProtectedRoute);
