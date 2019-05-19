@@ -2,7 +2,7 @@ import * as types from "../actiontypes/expenses";
 import * as expenseApi from "../../api/expenseApi";
 
 export function loadExpensesSuccess(expenses) {
-  return { types: types.LOAD_EXPENSES_SUCCESS, expenses };
+  return { type: types.LOAD_EXPENSES_SUCCESS, expenses };
 }
 
 export function loadExpenses() {
@@ -11,6 +11,7 @@ export function loadExpenses() {
       expenseApi
         .getExpenses()
         .then(expenses => {
+          console.log(expenses);
           dispatch(loadExpensesSuccess(expenses));
         })
         // TODO: change a better way to log the api errors
