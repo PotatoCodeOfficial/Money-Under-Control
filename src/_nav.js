@@ -22,7 +22,7 @@ export default {
     },
     {
       name: "Expenses",
-      url: "/app/theme/typography",
+      url: "/app/expenses",
       icon: "fa fa-list"
     },
     {

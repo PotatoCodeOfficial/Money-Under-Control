@@ -10,7 +10,7 @@ class Dashboard extends Component {
 
     this.state = {
       dropdownOpen: false,
-      radioSelected: 2,
+      radioSelected: 2
     };
   }
 
@@ -31,9 +31,7 @@ class Dashboard extends Component {
   );
 
   render() {
-    return (
-      <div className="animated fadeIn" />
-    );
+    return <div className="animated fadeIn" />;
   }
 }
 
