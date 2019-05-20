@@ -18,71 +18,98 @@ import {
 import Income from "../../../../components/Income/Income";
 import axios from "axios";
 import moment from "moment";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import {
+  addIncome,
+  getIncomes,
+  openModal,
+  closeModal,
+  updateActualIncome,
+  cleanActualIncome,
+  setActualIncome
+} from "../../../../redux/actions/incomeActions";
+import { bindActionCreators } from "redux";
 
 class Incomes extends Component {
-  state = {
-    incomes: [],
-    createModal: false,
-    amount: 0,
-    category: 1
-  };
-
-  getIncomes = () => {
+  loadIncomes = () => {
     axios.get("/incomes?uid=PPtk6UoXaGW3IowzEpjrqxmZS2O2").then(response => {
-      console.log(response);
       let incomes = response.data.map(income => {
         return {
+          id: income.id,
           amount: income.amount,
           name: income.name,
           date: moment.unix(income.date).format("MM/DD/YYYY"),
-          category: income.category.name,
+          category_name: income.category.name,
+          category: income.category.id,
           icon: income.category.icon
         };
       });
-      this.setState({ incomes });
+      this.props.getIncomes(incomes);
     });
   };
 
   createIncome = () => {
-    this.setState({ createModal: true });
+    this.props.openModal();
   };
 
   closeIncome = () => {
-    this.setState({ createModal: false });
+    this.props.closeModal();
+    this.props.cleanActualIncome();
   };
 
-  saveNewIncome = () => {
-    let { name, amount, category, description } = this.state;
+  saveIncome = () => {
     let newIncome = {
-      name,
-      amount,
-      category,
-      description,
+      ...this.props.actualIncome,
       uid: "PPtk6UoXaGW3IowzEpjrqxmZS2O2" // Will use `user.uid`
     };
 
-    axios.post("/incomes", newIncome).then(result => {
-      this.getIncomes();
-      this.setState({
-        createModal: false,
-        name: "",
-        amount: "",
-        category: 1,
-        description: ""
+    if (this.props.actualIncome.id != null) {
+      axios
+        .put("/incomes/" + this.props.actualIncome.id, newIncome)
+        .then(result => {
+          this.loadIncomes();
+          this.props.cleanActualIncome();
+          this.props.closeModal();
+        });
+    } else {
+      axios.post("/incomes", newIncome).then(result => {
+        newIncome.id = result.data.id;
+        this.props.addIncome(newIncome);
+        this.props.cleanActualIncome();
+        this.props.closeModal();
       });
+    }
+  };
+
+  deleteIncome = () => {
+    axios.delete("/incomes/" + this.props.actualIncome.id).then(result => {
+      this.loadIncomes();
+      this.props.cleanActualIncome();
+      this.props.closeModal();
     });
   };
 
-  onFormChange = event => {
-    let key = event.target.id;
-    let newState = {};
-    newState[key] = event.target.value;
-    this.setState({ ...newState });
+  componentWillMount() {
+    this.loadIncomes();
+  }
+
+  handleFormChange = e => {
+    let updatedIncome = {};
+    updatedIncome[e.target.id] = e.target.value;
+    this.props.updateActualIncome(updatedIncome);
   };
 
-  componentWillMount() {
-    this.getIncomes();
-  }
+  openUpdateModal = e => {
+    if (e.target.id.includes("edit-")) {
+      let id = e.target.id.split("edit-")[1];
+      let income = this.props.incomes.filter(inc => {
+        if (inc.id == id) return inc;
+      })[0];
+      this.props.setActualIncome(income);
+      this.props.openModal();
+    }
+  };
 
   render() {
     return (
@@ -95,29 +122,32 @@ class Incomes extends Component {
                 <div className="card-header-actions">
                   <Button
                     className="btn-success"
-                    style={{ "margin-right": "5px" }}
+                    style={{ marginRight: "5px" }}
                     onClick={this.createIncome}
                   >
                     <i className="fa fa-plus" />
                   </Button>
-                  <Button className="btn-info" onClick={this.getIncomes}>
+                  <Button className="btn-info" onClick={this.loadIncomes}>
                     <i className="fa fa-refresh" />
                   </Button>
                 </div>
               </CardHeader>
               <CardBody>
-                {this.state.incomes.map(income => {
+                {this.props.incomes.map((income, idx) => {
                   return (
                     <Income
+                      key={idx}
                       header={"$" + income.amount}
                       mainText={income.name}
                       icon={income.icon != null ? income.icon : "fa fa-dollar"}
                       variant="1"
+                      identifier={income.id}
                       color="success"
+                      onClick={this.openUpdateModal}
                     />
                   );
                 })}
-
+                {/* Important TODO */}
                 {/* <Pagination>
                   <PaginationItem disabled>
                     <PaginationLink previous tag="button">
@@ -147,13 +177,13 @@ class Incomes extends Component {
           </Col>
         </Row>
         <Modal
-          isOpen={this.state.createModal}
+          isOpen={this.props.createModalStatus.open}
           toggle={this.closeIncome}
           className={"modal-success " + this.props.className}
         >
           <ModalHeader toggle={this.closeIncome}>Add a new Income</ModalHeader>
           <ModalBody>
-            <Form onChange={this.onFormChange}>
+            <Form onChange={this.handleFormChange}>
               <Row>
                 <Col xs="12">
                   <FormGroup>
@@ -162,6 +192,7 @@ class Incomes extends Component {
                       type="text"
                       id="name"
                       placeholder="Income name"
+                      value={this.props.actualIncome.name}
                       required
                     />
                   </FormGroup>
@@ -173,6 +204,7 @@ class Incomes extends Component {
                       type="text"
                       id="description"
                       placeholder="Income Description"
+                      value={this.props.actualIncome.description}
                       required
                     />
                   </FormGroup>
@@ -182,7 +214,13 @@ class Incomes extends Component {
                 <Col xs="6">
                   <FormGroup>
                     <Label htmlFor="category">Category</Label>
-                    <Input type="select" name="category" id="category">
+                    <Input
+                      type="select"
+                      name="category"
+                      id="category"
+                      value={this.props.actualIncome.category_name}
+                    >
+                      {/* Need to use data from DB */}
                       <option value="1">1</option>
                       <option value="2">2</option>
                     </Input>
@@ -195,7 +233,7 @@ class Incomes extends Component {
                       type="number"
                       id="amount"
                       placeholder="1000"
-                      value={this.state.amount}
+                      value={this.props.actualIncome.amount}
                       required
                     />
                   </FormGroup>
@@ -204,8 +242,13 @@ class Incomes extends Component {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color="success" onClick={this.saveNewIncome}>
-              Save
+            {this.props.actualIncome.id == null ? null : (
+              <Button color="danger" onClick={this.deleteIncome}>
+                Delete
+              </Button>
+            )}
+            <Button color="success" onClick={this.saveIncome}>
+              {this.props.actualIncome.id == null ? "Save" : "Update"}
             </Button>
             <Button color="secondary" onClick={this.closeIncome}>
               Cancel
@@ -217,4 +260,43 @@ class Incomes extends Component {
   }
 }
 
-export default Incomes;
+Incomes.propTypes = {
+  incomes: PropTypes.array,
+  actualIncome: PropTypes.object.isRequired,
+  createModalStatus: PropTypes.object.isRequired,
+  addIncome: PropTypes.func.isRequired,
+  getIncomes: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  updateActualIncome: PropTypes.func.isRequired,
+  cleanActualIncome: PropTypes.func.isRequired,
+  setActualIncome: PropTypes.func.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    incomes: state.incomes.incomes,
+    actualIncome: state.incomes.actualIncome,
+    createModalStatus: state.incomes.createModalStatus
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      addIncome: addIncome,
+      getIncomes: getIncomes,
+      openModal: openModal,
+      closeModal: closeModal,
+      updateActualIncome: updateActualIncome,
+      cleanActualIncome: cleanActualIncome,
+      setActualIncome: setActualIncome
+    },
+    dispatch
+  );
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Incomes);
