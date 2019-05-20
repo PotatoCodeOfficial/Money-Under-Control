@@ -7,6 +7,7 @@ import { mapToCssModules } from "reactstrap/lib/utils";
 const propTypes = {
   header: PropTypes.string,
   mainText: PropTypes.string,
+  identifier: PropTypes.number,
   icon: PropTypes.string,
   color: PropTypes.string,
   variant: PropTypes.string,
@@ -23,7 +24,8 @@ const defaultProps = {
   icon: "fa fa-cogs",
   color: "primary",
   variant: "0",
-  link: "#"
+  link: "#",
+  identifier: 0
 };
 
 class Income extends Component {
@@ -33,6 +35,7 @@ class Income extends Component {
       cssModule,
       header,
       mainText,
+      identifier,
       icon,
       color,
       footer,
@@ -74,7 +77,13 @@ class Income extends Component {
         bootstrapStyles,
         "text-center"
       );
-      return <i className={classes} style={{ width: "3.5rem" }} />;
+      return (
+        <i
+          className={classes}
+          style={{ width: "3.5rem" }}
+          id={"edit-" + identifier}
+        />
+      );
     };
 
     const cardFooter = function() {
@@ -96,7 +105,7 @@ class Income extends Component {
     return (
       <Card
         style={{
-          "margin-bottom": "0.25rem"
+          marginBottom: "0.25rem"
         }}
       >
         <CardBody className={card.classes} {...attributes}>

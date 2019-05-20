@@ -1,5 +1,9 @@
 export default {
   expenses: [],
-  incomes: [],
+  incomes: {
+    incomes: [],
+    actualIncome: {},
+    createModalStatus: {}
+  },
   user: {}
 };

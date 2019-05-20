@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 import { logoutUser } from "../../redux/actions/authActions";
 import { bindActionCreators } from "redux";
-import { doLogout, isLogged } from "../../helpers/auth";
+import { doLogout } from "../../helpers/auth";
 import { withRouter } from "react-router-dom";
 
 class UserButton extends Component {
