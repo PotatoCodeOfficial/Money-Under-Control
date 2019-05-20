@@ -1,7 +1,7 @@
 class IncomeController < ApplicationController
   def index
     # TODO: add serializer, instead of `attribtes` override
-    render json: Income.all.to_json
+    render json: Income.where(is_deleted: [false, nil]).to_json
   end
 
   def create
