@@ -1,5 +1,4 @@
-// TO DO: Clean this
-// Not used right now, but are here to represent how should be
+// TODO: Probaly depreacted
 export const GET_INCOMES = "income/GET_INCOMES";
 export const ADD_INCOME = "income/ADD_INCOME";
 export const REMOVE_INCOME = "income/REMOVE_INCOME";
@@ -13,3 +12,9 @@ export const CLOSE_CREATE_INCOME_MODAL = "income/CLOSE_CREATE_INCOME_MODAL";
 export const UPDATE_ACTUAL_INCOME = "income/UPDATE_ACTUAL_INCOME";
 export const CLEAN_ACTUAL_INCOME = "income/CLEAN_ACTUAL_INCOME";
 export const SET_ACTUAL_INCOME = "income/SET_ACTUAL_INCOME";
+
+// Saga side effects
+export const LOAD_INCOMES = "income/LOAD_INCOMES";
+
+// Data
+export const SET_INCOMES = "income/SET_INCOMES";

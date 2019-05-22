@@ -1,7 +1,7 @@
 class IncomeController < ApplicationController
   def index
     # TODO: add serializer, instead of `attribtes` override
-    render json: Income.where(is_deleted: [false, nil]).to_json
+    render json: Income.where(uid: uid, is_deleted: [false, nil]).to_json
   end
 
   def create
@@ -24,6 +24,11 @@ class IncomeController < ApplicationController
   end
 
   private
+
+  def uid
+    # TODO: use firebase JWT token
+    @uid ||= params[:uid]
+  end
 
   def income_body
     @income_body ||= params.permit(:name, :uid, :description, :amount)

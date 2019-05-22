@@ -19,10 +19,10 @@ import routes from "../../routes";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { loginUser } from "../../redux/actions/authActions";
+import { loadUser } from "../../redux/actions/authActions";
+import { loadCategories } from "../../redux/actions/categoryActions";
 import { isLogged } from "../../helpers/auth";
 
-import { auth } from "../../helpers/firebase";
 import { bindActionCreators } from "redux";
 
 const Footer = React.lazy(() => import("./Footer"));
@@ -32,16 +32,12 @@ class Layout extends Component {
   constructor(props) {
     super(props);
 
-    const { loginUser, user } = props;
+    const { loadUser, user, loadCategories } = props;
 
     if (isLogged()) {
       if (!user) {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-          if (user) {
-            loginUser(user);
-            unsubscribe();
-          }
-        });
+        loadUser();
+        loadCategories();
       }
     } else {
       this.props.history.push("/login");
@@ -106,7 +102,8 @@ class Layout extends Component {
 
 Layout.propTypes = {
   user: PropTypes.object,
-  loginUser: PropTypes.func.isRequired
+  loadUser: PropTypes.func.isRequired,
+  loadCategories: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -116,7 +113,10 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ loginUser: loginUser }, dispatch);
+  return bindActionCreators(
+    { loadUser: loadUser, loadCategories: loadCategories },
+    dispatch
+  );
 };
 
 export default connect(
