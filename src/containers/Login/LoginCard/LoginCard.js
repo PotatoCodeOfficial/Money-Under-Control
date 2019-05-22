@@ -4,12 +4,12 @@ import { doLogin } from "../../../helpers/auth";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { loginUser } from "../../../redux/actions/authActions";
+import { setUser } from "../../../redux/actions/authActions";
 import { bindActionCreators } from "redux";
 class LoginCard extends Component {
   login = () => {
     doLogin().then(user => {
-      this.props.loginUser(user);
+      this.props.setUser(user);
       this.props.history.push("/app/dashboard");
     });
   };
@@ -40,7 +40,7 @@ class LoginCard extends Component {
 }
 
 LoginCard.propTypes = {
-  loginUser: PropTypes.func.isRequired
+  setUser: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -50,7 +50,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ loginUser: loginUser }, dispatch);
+  return bindActionCreators({ setUser: setUser }, dispatch);
 };
 
 export default connect(

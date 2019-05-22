@@ -18,6 +18,11 @@ const initialState = {
 // please do not modify current state inside this
 export default function IncomeReducer(state = initialState, action) {
   switch (action.type) {
+    case IncomeTypes.SET_INCOMES:
+      return {
+        ...state,
+        incomes: action.payload
+      };
     case IncomeTypes.ADD_INCOME:
       let { incomes } = state;
       incomes.push(action.payload);

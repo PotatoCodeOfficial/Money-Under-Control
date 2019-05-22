@@ -16,8 +16,27 @@ const provider = new firebase.auth.GoogleAuthProvider();
 
 const auth = firebase.auth();
 
+let userLoaded = false;
+
+// This method exists to do not use firebase.auth().onAuthStateChanged directly
+// Plus simplify the user getting on from an event to a Promise
+// Code comes from: https://github.com/firebase/firebase-js-sdk/issues/462#issuecomment-425479634
+const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    if (userLoaded) {
+      resolve(auth.currentUser);
+    }
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      userLoaded = true;
+      unsubscribe();
+      resolve(user);
+    }, reject);
+  });
+};
+
 module.exports = {
   firebase,
   provider,
-  auth
+  auth,
+  getCurrentUser
 };

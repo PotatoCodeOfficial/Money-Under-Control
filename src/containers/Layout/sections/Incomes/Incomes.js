@@ -17,7 +17,7 @@ import {
 } from "reactstrap";
 import Income from "../../../../components/Income/Income";
 import axios from "axios";
-import moment from "moment";
+// import moment from "moment";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -27,26 +27,15 @@ import {
   closeModal,
   updateActualIncome,
   cleanActualIncome,
-  setActualIncome
+  setActualIncome,
+  loadUserIncomes
 } from "../../../../redux/actions/incomeActions";
+
 import { bindActionCreators } from "redux";
 
 class Incomes extends Component {
   loadIncomes = () => {
-    axios.get("/incomes?uid=PPtk6UoXaGW3IowzEpjrqxmZS2O2").then(response => {
-      let incomes = response.data.map(income => {
-        return {
-          id: income.id,
-          amount: income.amount,
-          name: income.name,
-          date: moment.unix(income.date).format("MM/DD/YYYY"),
-          category_name: income.category.name,
-          category: income.category.id,
-          icon: income.category.icon
-        };
-      });
-      this.props.getIncomes(incomes);
-    });
+    this.props.loadUserIncomes();
   };
 
   createIncome = () => {
@@ -61,7 +50,7 @@ class Incomes extends Component {
   saveIncome = () => {
     let newIncome = {
       ...this.props.actualIncome,
-      uid: "PPtk6UoXaGW3IowzEpjrqxmZS2O2" // Will use `user.uid`
+      uid: this.props.user.uid
     };
 
     if (this.props.actualIncome.id != null) {
@@ -220,9 +209,11 @@ class Incomes extends Component {
                       id="category"
                       value={this.props.actualIncome.category_name}
                     >
-                      {/* Need to use data from DB */}
-                      <option value="1">1</option>
-                      <option value="2">2</option>
+                      {this.props.incomeCategories.map(category => {
+                        return (
+                          <option value={category.id}>{category.name}</option>
+                        );
+                      })}
                     </Input>
                   </FormGroup>
                 </Col>
@@ -261,7 +252,9 @@ class Incomes extends Component {
 }
 
 Incomes.propTypes = {
+  user: PropTypes.object,
   incomes: PropTypes.array,
+  incomeCategories: PropTypes.array,
   actualIncome: PropTypes.object.isRequired,
   createModalStatus: PropTypes.object.isRequired,
   addIncome: PropTypes.func.isRequired,
@@ -270,12 +263,14 @@ Incomes.propTypes = {
   closeModal: PropTypes.func.isRequired,
   updateActualIncome: PropTypes.func.isRequired,
   cleanActualIncome: PropTypes.func.isRequired,
-  setActualIncome: PropTypes.func.isRequired
+  setActualIncome: PropTypes.func.isRequired,
+  loadUserIncomes: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     incomes: state.incomes.incomes,
+    incomeCategories: state.category.incomeCategories,
     actualIncome: state.incomes.actualIncome,
     createModalStatus: state.incomes.createModalStatus
   };
@@ -290,7 +285,8 @@ const mapDispatchToProps = dispatch => {
       closeModal: closeModal,
       updateActualIncome: updateActualIncome,
       cleanActualIncome: cleanActualIncome,
-      setActualIncome: setActualIncome
+      setActualIncome: setActualIncome,
+      loadUserIncomes: loadUserIncomes
     },
     dispatch
   );

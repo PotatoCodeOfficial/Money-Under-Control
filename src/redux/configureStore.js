@@ -1,20 +1,26 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "./reducers";
 // import reduxImmutableStateInvariant from "redux-immutable-state-invariant";
-import thunk from "redux-thunk";
+import sagas from "./sagas/sagas";
+import createSagaMiddleware from "redux-saga";
+
+const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(initialState) {
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSIONS_COMPOSE__ || compose; // Adding support for dev tools
-  return createStore(
+  const store = createStore(
     rootReducer,
     initialState,
     composeEnhancers(
-      //applyMiddleware(thunk, reduxImmutableStateInvariant()), // Indicates if the state is being mutated
-      applyMiddleware(thunk), // Indicates if the state is being mutated
+      applyMiddleware(sagaMiddleware),
       window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()
         : f => f // Add Redux DevTools
     )
   );
+
+  sagaMiddleware.run(sagas);
+
+  return store;
 }

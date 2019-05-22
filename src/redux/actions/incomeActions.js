@@ -32,3 +32,13 @@ export const cleanActualIncome = () => {
 export const setActualIncome = income => {
   return { type: IncomeTypes.SET_ACTUAL_INCOME, payload: income };
 };
+
+// Saga
+export const loadUserIncomes = () => {
+  return { type: IncomeTypes.LOAD_INCOMES };
+};
+
+// Set data
+export const setIncomes = incomes => {
+  return { type: IncomeTypes.SET_INCOMES, payload: incomes };
+};
