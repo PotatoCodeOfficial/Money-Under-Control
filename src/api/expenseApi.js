@@ -1,11 +1,12 @@
-import { handleResponse, handleError } from "./apiUtils";
+import { handleError, handleResponse } from "./apiUtils";
 import axios from "axios";
 
-const baseUrl = "http://localhost:3000/expenses/";
+const baseUrl = "/expenses/";
 
-export function getExpenses() {
+export function getNonDeletedExpenses() {
+  const url = `${baseUrl}?uid=IAgIup6gKFaT7WnA0gx4YdPGGjz1`;
   return axios
-    .get(baseUrl)
+    .get(url)
     .then(handleResponse)
     .catch(handleError);
 }

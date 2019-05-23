@@ -1,22 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as expenseActions from "../../../../redux/actions/expenseActions";
+import { loadUserExpenses } from "../../../../redux/actions/expenseActions";
 import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
 import ExpenseList from "./ExpenseList";
 
+import { bindActionCreators } from "redux";
+
 class Expenses extends Component {
+  loadExpenses = () => {
+    this.props.loadUserExpenses();
+  };
+
   componentDidMount() {
-    console.log("Init Expenses");
-
-    const { actions, expenses } = this.props;
-
-    if (expenses.length === 0) {
-      actions.loadExpenses().catch(error => {
-        // TODO: Change error handling
-        console.log("Error retrieving " + error);
-      });
-    }
+    this.loadExpenses();
   }
 
   render() {
@@ -30,8 +26,9 @@ class Expenses extends Component {
 }
 
 Expenses.propTypes = {
-  expenses: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  expenses: PropTypes.array,
+  actions: PropTypes.object,
+  loadUserExpenses: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -40,11 +37,14 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(expenseActions, dispatch)
-  };
-}
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      loadUserExpenses: loadUserExpenses
+    },
+    dispatch
+  );
+};
 
 export default connect(
   mapStateToProps,
