@@ -1,23 +1,12 @@
-import * as types from "../actiontypes/expenses";
-import * as expenseApi from "../../api/expenseApi";
+// Will export action creators
+import * as ExpenseTypes from "../actiontypes/expenses";
 
-export function loadExpensesSuccess(expenses) {
-  return { type: types.LOAD_EXPENSES_SUCCESS, expenses };
-}
+// Saga
+export const loadUserExpenses = () => {
+  return { type: ExpenseTypes.LOAD_EXPENSES };
+};
 
-export function loadExpenses() {
-  return function(dispatch) {
-    return (
-      expenseApi
-        .getExpenses()
-        .then(expenses => {
-          console.log(expenses);
-          dispatch(loadExpensesSuccess(expenses));
-        })
-        // TODO: change a better way to log the api errors
-        .catch(error => {
-          throw error;
-        })
-    );
-  };
-}
+// Set data
+export const setExpenses = expenses => {
+  return { type: ExpenseTypes.SET_EXPENSES, payload: expenses };
+};

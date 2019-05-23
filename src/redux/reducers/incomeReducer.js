@@ -15,7 +15,7 @@ const initialState = {
 };
 
 // Important: This should be a `Pure Function` so
-// please do not modify current state inside this
+// please do not modify current state inside this (And what if I do? :P )
 export default function IncomeReducer(state = initialState, action) {
   switch (action.type) {
     case IncomeTypes.SET_INCOMES:
