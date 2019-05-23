@@ -84,6 +84,7 @@ class Incomes extends Component {
   }
 
   handleFormChange = e => {
+    console.log(this.props.user);
     let updatedIncome = {};
     updatedIncome[e.target.id] = e.target.value;
     this.props.updateActualIncome(updatedIncome);
@@ -269,6 +270,7 @@ Incomes.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    user: state.auth.user,
     incomes: state.incomes.incomes,
     incomeCategories: state.category.incomeCategories,
     actualIncome: state.incomes.actualIncome,
