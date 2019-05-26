@@ -30,12 +30,8 @@ import {
   setActualIncome,
   loadUserIncomes
 } from "../../../../redux/actions/incomeActions";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-
 import { bindActionCreators } from "redux";
-
-const MySwal = withReactContent(Swal);
+import MessageDialog from "../../../../helpers/Alerts";
 
 class Incomes extends Component {
   loadIncomes = () => {
@@ -73,22 +69,7 @@ class Incomes extends Component {
         this.props.closeModal();
       });
     }
-
-    MySwal.fire({
-      title: <p>Success</p>,
-      footer: "Copyright 2018",
-      onOpen: () => {
-        // `MySwal` is a subclass of `Swal`
-        //   with all the same instance & static methods
-        MySwal.clickConfirm();
-      }
-    }).then(() => {
-      return MySwal.fire(
-        "Success!",
-        "The income was saved successfully",
-        "success"
-      );
-    });
+    MessageDialog("Success!!", "The income was saved Successfully", "success");
   };
 
   deleteIncome = () => {
@@ -97,6 +78,11 @@ class Incomes extends Component {
       this.props.cleanActualIncome();
       this.props.closeModal();
     });
+    MessageDialog(
+      "Deleted!!",
+      "The income was deleted Successfully",
+      "success"
+    );
   };
 
   componentWillMount() {

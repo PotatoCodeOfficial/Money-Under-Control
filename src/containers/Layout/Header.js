@@ -7,6 +7,7 @@ import { AppNavbarBrand, AppSidebarToggler } from "@coreui/react";
 import logo from "../../assets/img/brand/logo.svg";
 import sygnet from "../../assets/img/brand/sygnet.svg";
 import UserButton from "../UserButton/UserButton";
+import SpeechRecognition from "../../helpers/Dictaphone";
 
 const propTypes = {
   children: PropTypes.node
@@ -27,8 +28,10 @@ class Header extends Component {
           minimized={{ src: sygnet, width: 30, height: 30, alt: "CoreUI Logo" }}
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
-
         <Nav className="ml-auto" navbar>
+          <NavItem>
+            <SpeechRecognition />
+          </NavItem>
           <NavItem>
             <NavLink to="#" className="nav-link">
               <i className="icon-bell" />
