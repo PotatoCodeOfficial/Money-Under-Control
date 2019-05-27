@@ -19,7 +19,9 @@ class Expenses extends Component {
     return (
       <>
         <h2> Expenses </h2>
-        <ExpenseList expenses={this.props.expenses} />
+        {this.props.expenses.map(expense => {
+          return <p>{expense.name}</p>;
+        })}
       </>
     );
   }
@@ -33,7 +35,7 @@ Expenses.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    expenses: state.expenses
+    expenses: state.expenses.expenses
   };
 }
 

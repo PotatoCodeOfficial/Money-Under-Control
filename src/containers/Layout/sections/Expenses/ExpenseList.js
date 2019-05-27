@@ -12,7 +12,7 @@ const ExpenseList = ({ expenses }) => (
 );
 
 ExpenseList.propTypes = {
-  expenses: PropTypes.array.isRequired
+  expenses: PropTypes.array
 };
 
 export default ExpenseList;
