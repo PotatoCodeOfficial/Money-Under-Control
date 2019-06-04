@@ -188,7 +188,7 @@ class Incomes extends Component {
                       type="text"
                       id="name"
                       placeholder="Income name"
-                      value={this.props.actualIncome.name}
+                      defaultValue={this.props.actualIncome.name}
                       required
                     />
                   </FormGroup>
@@ -200,7 +200,7 @@ class Incomes extends Component {
                       type="text"
                       id="description"
                       placeholder="Income Description"
-                      value={this.props.actualIncome.description}
+                      defaultValue={this.props.actualIncome.description}
                       required
                     />
                   </FormGroup>
@@ -214,11 +214,11 @@ class Incomes extends Component {
                       type="select"
                       name="category"
                       id="category"
-                      value={this.props.actualIncome.category_name}
+                      defaultValue={this.props.actualIncome.category_name}
                     >
-                      {this.props.incomeCategories.map(category => {
+                      {this.props.incomeCategories.map((category, idx) => {
                         return (
-                          <option value={category.id}>{category.name}</option>
+                          <option key={idx} defaultValue={category.id}>{category.name}</option>
                         );
                       })}
                     </Input>
@@ -231,7 +231,7 @@ class Incomes extends Component {
                       type="number"
                       id="amount"
                       placeholder="1000"
-                      value={this.props.actualIncome.amount}
+                      defaultValue={this.props.actualIncome.amount}
                       required
                     />
                   </FormGroup>

@@ -41,7 +41,7 @@ class Dictaphone extends Component {
         <input
           className="form-control micro-input"
           placeholder="What's your transaction..."
-          value={transcript}
+          defaultValue={transcript}
         />
         <button className="btn btn-success" onClick={handleChange}>
           <i className="fa fa-microphone" />

@@ -1,5 +1,6 @@
 const firebase = require("firebase/app");
 require("firebase/auth");
+const axios = require("axios")
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -28,6 +29,19 @@ const getCurrentUser = () => {
     }
     const unsubscribe = auth.onAuthStateChanged(user => {
       userLoaded = true;
+      axios.interceptors.request.use((config) => {
+
+        user.getIdToken().then(token => {
+          config.headers = {
+            Authorization: 'Bearer ' + token
+          }
+        })
+        console.log(config)
+        return config;
+      }, (error) => {
+        // Do something with request error
+        return Promise.reject(error);
+      });
       unsubscribe();
       resolve(user);
     }, reject);
