@@ -85,7 +85,7 @@ class Incomes extends Component {
     );
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadIncomes();
   }
 
