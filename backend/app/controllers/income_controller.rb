@@ -16,7 +16,7 @@ class IncomeController < ApplicationController
 
   def update
     # TODO: add serializer, instead of `attribtes` override
-    income = Income.find(income_id)
+    income = Income.find_by(id: income_id, uid: @user_id)
     render_unprocessable_entity(errors: income.errors) unless income.update(income_body)
     render_resource(income.reload)
   end

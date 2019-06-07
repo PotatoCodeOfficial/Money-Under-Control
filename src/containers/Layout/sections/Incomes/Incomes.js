@@ -49,8 +49,7 @@ class Incomes extends Component {
 
   saveIncome = () => {
     let newIncome = {
-      ...this.props.actualIncome,
-      uid: this.props.user.uid
+      ...this.props.actualIncome
     };
 
     if (this.props.actualIncome.id != null) {
