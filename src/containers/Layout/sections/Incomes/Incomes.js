@@ -16,7 +16,6 @@ import {
   Form
 } from "reactstrap";
 import Income from "../../../../components/Income/Income";
-// import moment from "moment";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -170,7 +169,7 @@ class Incomes extends Component {
                     >
                       {this.props.incomeCategories.map((category, idx) => {
                         return (
-                          <option key={idx} defaultValue={category.id}>{category.name}</option>
+                          <option key={idx} value={category.id}>{category.name}</option>
                         );
                       })}
                     </Input>
