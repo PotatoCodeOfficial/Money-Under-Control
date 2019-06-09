@@ -28,7 +28,8 @@ import {
   updateActualIncome,
   cleanActualIncome,
   setActualIncome,
-  loadUserIncomes
+  loadUserIncomes,
+  saveIncome
 } from "../../../../redux/actions/incomeActions";
 import { bindActionCreators } from "redux";
 import MessageDialog from "../../../../helpers/Alerts";
@@ -48,26 +49,7 @@ class Incomes extends Component {
   };
 
   saveIncome = () => {
-    let newIncome = {
-      ...this.props.actualIncome
-    };
-
-    if (this.props.actualIncome.id != null) {
-      axios
-        .put("/incomes/" + this.props.actualIncome.id, newIncome)
-        .then(result => {
-          this.loadIncomes();
-          this.props.cleanActualIncome();
-          this.props.closeModal();
-        });
-    } else {
-      axios.post("/incomes", newIncome).then(result => {
-        newIncome.id = result.data.id;
-        this.props.addIncome(newIncome);
-        this.props.cleanActualIncome();
-        this.props.closeModal();
-      });
-    }
+    this.props.saveIncome(this.props.actualIncome)
     MessageDialog("Success!!", "The income was saved Successfully", "success");
   };
 
@@ -89,7 +71,7 @@ class Incomes extends Component {
   }
 
   handleFormChange = e => {
-    console.log(this.props.user);
+
     let updatedIncome = {};
     updatedIncome[e.target.id] = e.target.value;
     this.props.updateActualIncome(updatedIncome);
@@ -270,7 +252,8 @@ Incomes.propTypes = {
   updateActualIncome: PropTypes.func.isRequired,
   cleanActualIncome: PropTypes.func.isRequired,
   setActualIncome: PropTypes.func.isRequired,
-  loadUserIncomes: PropTypes.func.isRequired
+  loadUserIncomes: PropTypes.func.isRequired,
+  saveIncome: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -293,7 +276,8 @@ const mapDispatchToProps = dispatch => {
       updateActualIncome: updateActualIncome,
       cleanActualIncome: cleanActualIncome,
       setActualIncome: setActualIncome,
-      loadUserIncomes: loadUserIncomes
+      loadUserIncomes: loadUserIncomes,
+      saveIncome: saveIncome
     },
     dispatch
   );

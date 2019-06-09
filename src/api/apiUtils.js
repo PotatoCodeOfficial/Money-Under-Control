@@ -37,3 +37,24 @@ export async function handleResponse(response) {
   }
   throw new Error("Network response was not ok");
 }
+
+export async function handleSaveIncomeResponse(response) {
+  if (response) {
+    return {
+      id: response.data.id,
+      amount: response.data.amount,
+      name: response.data.name,
+      date: moment.unix(response.data.date).format("MM/DD/YYYY"),
+      category_name: response.data.category.name,
+      category: response.data.category.id,
+      icon: response.data.category.icon
+    };
+  }
+
+  if (response.status === 400) {
+    // Server side validation returns a string error message, so parse as json
+    const error = await response.text();
+    throw new Error(error);
+  }
+  throw new Error("Network response was not ok");
+}
