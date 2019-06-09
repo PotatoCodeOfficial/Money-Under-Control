@@ -62,7 +62,3 @@ export const setIncomes = incomes => {
 export const setIncome = income => {
   return { type: IncomeTypes.SET_INCOME, payload: income };
 };
-
-export const removeIncome = (id) => {
-  return { type: IncomeTypes.DELETE_INCOME, payload: id };
-};

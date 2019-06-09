@@ -1,7 +1,7 @@
 import { all, fork } from "redux-saga/effects";
 
 import { watchLoadUser } from "./authSaga";
-import { watchLoadIncomes, watchSaveIncome } from "./incomeSaga";
+import { watchLoadIncomes, watchSaveIncome, watchDeleteIncome } from "./incomeSaga";
 import { watchLoadExpenses } from "./expenseSaga";
 import { watchLoadCategories } from "./categorySaga";
 
@@ -11,6 +11,7 @@ export default function* () {
     fork(watchLoadIncomes),
     fork(watchSaveIncome),
     fork(watchLoadExpenses),
-    fork(watchLoadCategories)
+    fork(watchLoadCategories),
+    fork(watchDeleteIncome)
   ]);
 }

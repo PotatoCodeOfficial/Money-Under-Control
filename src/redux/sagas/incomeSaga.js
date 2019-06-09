@@ -10,35 +10,32 @@ function* loadUserIncomes() {
   });
 }
 
-function* saveIncomeOnApi(newIncome) {
-  console.log("AAAA")
-  yield call(saveIncome, newIncome.payload)
-  console.log("BBBB")
-  yield put({
-    type: IncomeActionTypes.LOAD_INCOMES
-  })
-  console.log("CCCC")
+function* closeAndCleanModal() {
   yield put({
     type: IncomeActionTypes.CLOSE_CREATE_INCOME_MODAL
   })
-  console.log("DDDD")
   yield put({
     type: IncomeActionTypes.CLEAN_ACTUAL_INCOME
   })
-  console.log("EEEE")
   yield put({
     type: IncomeActionTypes.CLOSE_CREATE_INCOME_MODAL
   })
 }
 
-function* deleteIncomeOnApi(id) {
-  yield call(deleteIncome, id)
+function* saveIncomeOnApi(newIncome) {
+  yield call(saveIncome, newIncome.payload)
   yield put({
-    type: IncomeActionTypes.CLEAN_ACTUAL_INCOME
+    type: IncomeActionTypes.LOAD_INCOMES
   })
+  yield call(closeAndCleanModal)
+}
+
+function* deleteIncomeOnApi(income) {
+  yield call(deleteIncome, income.payload)
   yield put({
-    type: IncomeActionTypes.CLOSE_CREATE_INCOME_MODAL
+    type: IncomeActionTypes.LOAD_INCOMES
   })
+  yield call(closeAndCleanModal)
 }
 
 export function* watchLoadIncomes() {
@@ -49,3 +46,6 @@ export function* watchSaveIncome() {
   yield takeEvery(IncomeActionTypes.SAVE_INCOME, saveIncomeOnApi);
 }
 
+export function* watchDeleteIncome() {
+  yield takeEvery(IncomeActionTypes.DELETE_INCOME, deleteIncomeOnApi)
+}

@@ -16,7 +16,6 @@ import {
   Form
 } from "reactstrap";
 import Income from "../../../../components/Income/Income";
-import axios from "axios";
 // import moment from "moment";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -29,7 +28,8 @@ import {
   cleanActualIncome,
   setActualIncome,
   loadUserIncomes,
-  saveIncome
+  saveIncome,
+  deleteIncome
 } from "../../../../redux/actions/incomeActions";
 import { bindActionCreators } from "redux";
 import MessageDialog from "../../../../helpers/Alerts";
@@ -54,11 +54,7 @@ class Incomes extends Component {
   };
 
   deleteIncome = () => {
-    axios.delete("/incomes/" + this.props.actualIncome.id).then(result => {
-      this.loadIncomes();
-      this.props.cleanActualIncome();
-      this.props.closeModal();
-    });
+    this.props.deleteIncome(this.props.actualIncome.id);
     MessageDialog(
       "Deleted!!",
       "The income was deleted Successfully",
@@ -124,31 +120,6 @@ class Incomes extends Component {
                     />
                   );
                 })}
-                {/* Important TODO */}
-                {/* <Pagination>
-                  <PaginationItem disabled>
-                    <PaginationLink previous tag="button">
-                      Prev
-                    </PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem active>
-                    <PaginationLink tag="button">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">2</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">3</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">4</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink next tag="button">
-                      Next
-                    </PaginationLink>
-                  </PaginationItem>
-                </Pagination> */}
               </CardBody>
             </Card>
           </Col>
@@ -253,7 +224,8 @@ Incomes.propTypes = {
   cleanActualIncome: PropTypes.func.isRequired,
   setActualIncome: PropTypes.func.isRequired,
   loadUserIncomes: PropTypes.func.isRequired,
-  saveIncome: PropTypes.func.isRequired
+  saveIncome: PropTypes.func.isRequired,
+  deleteIncome: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -277,7 +249,8 @@ const mapDispatchToProps = dispatch => {
       cleanActualIncome: cleanActualIncome,
       setActualIncome: setActualIncome,
       loadUserIncomes: loadUserIncomes,
-      saveIncome: saveIncome
+      saveIncome: saveIncome,
+      deleteIncome: deleteIncome
     },
     dispatch
   );

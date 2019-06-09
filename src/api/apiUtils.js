@@ -40,14 +40,16 @@ export async function handleResponse(response) {
 
 export async function handleSaveIncomeResponse(response) {
   if (response) {
+    let income = response.data
     return {
-      id: response.data.id,
-      amount: response.data.amount,
-      name: response.data.name,
-      date: moment.unix(response.data.date).format("MM/DD/YYYY"),
-      category_name: response.data.category.name,
-      category: response.data.category.id,
-      icon: response.data.category.icon
+      id: income.id,
+      amount: income.amount,
+      name: income.name,
+      description: income.description,
+      date: moment.unix(income.date).format("MM/DD/YYYY"),
+      category_name: income.category.name,
+      category: income.category.id,
+      icon: income.category.icon
     };
   }
 
@@ -57,4 +59,8 @@ export async function handleSaveIncomeResponse(response) {
     throw new Error(error);
   }
   throw new Error("Network response was not ok");
+}
+
+export async function handleDeleteIncomeResponse(response) {
+  return;
 }

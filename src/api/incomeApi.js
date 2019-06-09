@@ -1,4 +1,4 @@
-import { handleError, handleResponse, handleSaveIncomeResponse } from "./apiUtils";
+import { handleError, handleResponse, handleSaveIncomeResponse, handleDeleteIncomeResponse } from "./apiUtils";
 import axios from "axios";
 
 const baseUrl = "/incomes/";
@@ -30,6 +30,6 @@ export function deleteIncome(id) {
   const url = `${baseUrl}/${id}`;
   return axios
     .delete(url)
-    .then(handleResponse)
+    .then(handleDeleteIncomeResponse)
     .catch(handleError);
 }
