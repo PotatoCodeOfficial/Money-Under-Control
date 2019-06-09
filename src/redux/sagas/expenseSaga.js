@@ -1,6 +1,6 @@
 import { takeEvery, put, call } from "redux-saga/effects";
 import { getNonDeletedExpenses } from "../../api/expenseApi";
-import * as ExpensesActionTypes from "../actiontypes/expenses";
+import * as ExpensesActionTypes from "../actiontypes/expensesActionTypes";
 
 function* loadUserExpense() {
   const expenses = yield call(getNonDeletedExpenses);
@@ -11,6 +11,5 @@ function* loadUserExpense() {
 }
 
 export function* watchLoadExpenses() {
-  // Each time someone calls LOAD_USER, will perfom getUserFromFirebase
   yield takeEvery(ExpensesActionTypes.LOAD_EXPENSES, loadUserExpense);
 }

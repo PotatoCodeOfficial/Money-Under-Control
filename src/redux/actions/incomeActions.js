@@ -1,5 +1,5 @@
 // Will export action creators
-import * as IncomeTypes from "../actiontypes/incomes";
+import * as IncomeTypes from "../actiontypes/incomesActionTypes";
 
 // realted to API calls
 export const getIncomes = incomes => {

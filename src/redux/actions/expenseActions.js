@@ -1,5 +1,5 @@
 // Will export action creators
-import * as ExpenseTypes from "../actiontypes/expenses";
+import * as ExpenseTypes from "../actiontypes/expensesActionTypes";
 
 // Saga
 export const loadUserExpenses = () => {

@@ -1,6 +1,6 @@
 import { getCurrentUser } from "../../helpers/firebase";
 import { takeEvery, put, call } from "redux-saga/effects";
-import * as AuthActionTypes from "../actiontypes/auth";
+import * as AuthActionTypes from "../actiontypes/authActionTypes";
 import axios from "axios";
 
 

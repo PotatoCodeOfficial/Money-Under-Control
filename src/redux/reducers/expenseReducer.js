@@ -1,4 +1,4 @@
-import * as ExpenseTypes from "../actiontypes/expenses";
+import * as ExpenseTypes from "../actiontypes/expensesActionTypes";
 
 const initialState = {
   expenses: [],
