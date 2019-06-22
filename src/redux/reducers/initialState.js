@@ -5,5 +5,10 @@ export default {
     actualIncome: {},
     createModalStatus: {}
   },
+  expenses: {
+    expenses: [],
+    actualExpense: {},
+    createModalStatus: {}
+  },
   user: {}
 };

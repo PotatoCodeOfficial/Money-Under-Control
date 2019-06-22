@@ -1,5 +1,5 @@
 // Will export action creators
-import * as AuthActionTypes from "../actiontypes/auth";
+import * as AuthActionTypes from "../actiontypes/authActionTypes";
 
 // Maybe deprecated cause saga
 export const loginUser = user => {

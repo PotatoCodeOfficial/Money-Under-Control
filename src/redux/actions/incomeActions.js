@@ -1,5 +1,5 @@
 // Will export action creators
-import * as IncomeTypes from "../actiontypes/incomes";
+import * as IncomeTypes from "../actiontypes/incomesActionTypes";
 
 // realted to API calls
 export const getIncomes = incomes => {
@@ -38,7 +38,27 @@ export const loadUserIncomes = () => {
   return { type: IncomeTypes.LOAD_INCOMES };
 };
 
+export const saveIncome = (newIncome) => {
+  return {
+    type: IncomeTypes.SAVE_INCOME,
+    payload: newIncome
+  }
+}
+
+export const deleteIncome = (id) => {
+  return {
+    type: IncomeTypes.DELETE_INCOME,
+    payload: id
+  }
+}
+
+
 // Set data
 export const setIncomes = incomes => {
   return { type: IncomeTypes.SET_INCOMES, payload: incomes };
+};
+
+
+export const setIncome = income => {
+  return { type: IncomeTypes.SET_INCOME, payload: income };
 };

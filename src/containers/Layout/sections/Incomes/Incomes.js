@@ -16,8 +16,6 @@ import {
   Form
 } from "reactstrap";
 import Income from "../../../../components/Income/Income";
-import axios from "axios";
-// import moment from "moment";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -28,7 +26,9 @@ import {
   updateActualIncome,
   cleanActualIncome,
   setActualIncome,
-  loadUserIncomes
+  loadUserIncomes,
+  saveIncome,
+  deleteIncome
 } from "../../../../redux/actions/incomeActions";
 import { bindActionCreators } from "redux";
 import MessageDialog from "../../../../helpers/Alerts";
@@ -48,36 +48,12 @@ class Incomes extends Component {
   };
 
   saveIncome = () => {
-    let newIncome = {
-      ...this.props.actualIncome,
-      uid: this.props.user.uid
-    };
-
-    if (this.props.actualIncome.id != null) {
-      axios
-        .put("/incomes/" + this.props.actualIncome.id, newIncome)
-        .then(result => {
-          this.loadIncomes();
-          this.props.cleanActualIncome();
-          this.props.closeModal();
-        });
-    } else {
-      axios.post("/incomes", newIncome).then(result => {
-        newIncome.id = result.data.id;
-        this.props.addIncome(newIncome);
-        this.props.cleanActualIncome();
-        this.props.closeModal();
-      });
-    }
+    this.props.saveIncome(this.props.actualIncome)
     MessageDialog("Success!!", "The income was saved Successfully", "success");
   };
 
   deleteIncome = () => {
-    axios.delete("/incomes/" + this.props.actualIncome.id).then(result => {
-      this.loadIncomes();
-      this.props.cleanActualIncome();
-      this.props.closeModal();
-    });
+    this.props.deleteIncome(this.props.actualIncome.id);
     MessageDialog(
       "Deleted!!",
       "The income was deleted Successfully",
@@ -85,12 +61,12 @@ class Incomes extends Component {
     );
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadIncomes();
   }
 
   handleFormChange = e => {
-    console.log(this.props.user);
+
     let updatedIncome = {};
     updatedIncome[e.target.id] = e.target.value;
     this.props.updateActualIncome(updatedIncome);
@@ -143,31 +119,6 @@ class Incomes extends Component {
                     />
                   );
                 })}
-                {/* Important TODO */}
-                {/* <Pagination>
-                  <PaginationItem disabled>
-                    <PaginationLink previous tag="button">
-                      Prev
-                    </PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem active>
-                    <PaginationLink tag="button">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">2</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">3</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">4</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink next tag="button">
-                      Next
-                    </PaginationLink>
-                  </PaginationItem>
-                </Pagination> */}
               </CardBody>
             </Card>
           </Col>
@@ -188,7 +139,7 @@ class Incomes extends Component {
                       type="text"
                       id="name"
                       placeholder="Income name"
-                      value={this.props.actualIncome.name}
+                      defaultValue={this.props.actualIncome.name}
                       required
                     />
                   </FormGroup>
@@ -200,7 +151,7 @@ class Incomes extends Component {
                       type="text"
                       id="description"
                       placeholder="Income Description"
-                      value={this.props.actualIncome.description}
+                      defaultValue={this.props.actualIncome.description}
                       required
                     />
                   </FormGroup>
@@ -214,11 +165,11 @@ class Incomes extends Component {
                       type="select"
                       name="category"
                       id="category"
-                      value={this.props.actualIncome.category_name}
+                      defaultValue={this.props.actualIncome.category_name}
                     >
-                      {this.props.incomeCategories.map(category => {
+                      {this.props.incomeCategories.map((category, idx) => {
                         return (
-                          <option value={category.id}>{category.name}</option>
+                          <option key={idx} value={category.id}>{category.name}</option>
                         );
                       })}
                     </Input>
@@ -231,7 +182,7 @@ class Incomes extends Component {
                       type="number"
                       id="amount"
                       placeholder="1000"
-                      value={this.props.actualIncome.amount}
+                      defaultValue={this.props.actualIncome.amount}
                       required
                     />
                   </FormGroup>
@@ -271,7 +222,9 @@ Incomes.propTypes = {
   updateActualIncome: PropTypes.func.isRequired,
   cleanActualIncome: PropTypes.func.isRequired,
   setActualIncome: PropTypes.func.isRequired,
-  loadUserIncomes: PropTypes.func.isRequired
+  loadUserIncomes: PropTypes.func.isRequired,
+  saveIncome: PropTypes.func.isRequired,
+  deleteIncome: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -294,7 +247,9 @@ const mapDispatchToProps = dispatch => {
       updateActualIncome: updateActualIncome,
       cleanActualIncome: cleanActualIncome,
       setActualIncome: setActualIncome,
-      loadUserIncomes: loadUserIncomes
+      loadUserIncomes: loadUserIncomes,
+      saveIncome: saveIncome,
+      deleteIncome: deleteIncome
     },
     dispatch
   );

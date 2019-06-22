@@ -59,6 +59,7 @@ GEM
       concurrent-ruby (~> 1.0)
     json-schema (2.8.1)
       addressable (>= 2.4)
+    jwt (2.2.1)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -163,6 +164,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
+  jwt
   puma (~> 3.11)
   rails (~> 5.2.3)
   rspec-rails (~> 3.5)

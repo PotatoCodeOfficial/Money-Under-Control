@@ -37,3 +37,57 @@ export async function handleResponse(response) {
   }
   throw new Error("Network response was not ok");
 }
+
+export async function handleSaveIncomeResponse(response) {
+  if (response) {
+    let income = response.data
+    return {
+      id: income.id,
+      amount: income.amount,
+      name: income.name,
+      description: income.description,
+      date: moment.unix(income.date).format("MM/DD/YYYY"),
+      category_name: income.category.name,
+      category: income.category.id,
+      icon: income.category.icon
+    };
+  }
+
+  if (response.status === 400) {
+    // Server side validation returns a string error message, so parse as json
+    const error = await response.text();
+    throw new Error(error);
+  }
+  throw new Error("Network response was not ok");
+}
+
+export async function handleDeleteIncomeResponse(response) {
+  return;
+}
+
+export async function handleSaveExpenseResponse(response) {
+  if (response) {
+    let expense = response.data
+    return {
+      id: expense.id,
+      amount: expense.amount,
+      name: expense.name,
+      description: expense.description,
+      date: moment.unix(expense.date).format("MM/DD/YYYY"),
+      category_name: expense.category.name,
+      category: expense.category.id,
+      icon: expense.category.icon
+    };
+  }
+
+  if (response.status === 400) {
+    // Server side validation returns a string error message, so parse as json
+    const error = await response.text();
+    throw new Error(error);
+  }
+  throw new Error("Network response was not ok");
+}
+
+export async function handleDeleteExpenseResponse(response) {
+  return;
+}

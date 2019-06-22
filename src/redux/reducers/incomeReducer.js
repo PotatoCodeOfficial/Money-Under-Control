@@ -1,4 +1,4 @@
-import * as IncomeTypes from "../actiontypes/incomes";
+import * as IncomeTypes from "../actiontypes/incomesActionTypes";
 
 const initialState = {
   incomes: [],

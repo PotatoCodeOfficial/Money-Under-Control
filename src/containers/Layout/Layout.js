@@ -29,10 +29,8 @@ const Footer = React.lazy(() => import("./Footer"));
 const Header = React.lazy(() => import("./Header"));
 
 class Layout extends Component {
-  constructor(props) {
-    super(props);
-
-    const { loadUser, user, loadCategories } = props;
+  componentWillMount() {
+    const { loadUser, user, loadCategories } = this.props;
 
     if (isLogged()) {
       if (!user) {
@@ -72,7 +70,7 @@ class Layout extends Component {
             <AppBreadcrumb appRoutes={routes} />
             <Container fluid={!isMobile}>
               <Suspense fallback={this.loading()}>
-                <Switch>
+                {this.props.user != null ? (<Switch>
                   {routes.map((route, idx) => {
                     return route.component ? (
                       <Route
@@ -86,12 +84,14 @@ class Layout extends Component {
                   })}
                   <Redirect from="/" to="/app/dashboard" />
                 </Switch>
+                ) : null}
               </Suspense>
             </Container>
           </main>
         </div>
         <AppFooter>
           <Suspense fallback={this.loading()}>
+
             <Footer />
           </Suspense>
         </AppFooter>
@@ -108,7 +108,7 @@ Layout.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.auth.user
   };
 }
 
