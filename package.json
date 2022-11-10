@@ -17,7 +17,7 @@
     "moment": "^2.24.0",
     "sails": "^1.1.0",
     "sails-hook-orm": "^2.1.1",
-    "sails-hook-sockets": "^1.5.5",
+    "sails-hook-sockets": "^2.0.3",
     "sails-mysql": "^1.0.1"
   },
   "devDependencies": {
